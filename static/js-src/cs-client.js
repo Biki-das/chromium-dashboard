@@ -133,10 +133,10 @@ class ChromeStatusClient {
 
   // Signing in and out
 
-  signIn(googleUser) {
+  signIn(CredentialResponse) {
     // TODO(jrobbins): Consider using profile pic.
     // let profile = googleUser.getBasicProfile();
-    const idToken = googleUser.getAuthResponse().id_token;
+    const idToken = CredentialResponse.credential;
     // We don't use doPost because we don't already have a XSRF token.
     return this.doFetch('/login', 'POST', {'id_token': idToken}, false);
   }

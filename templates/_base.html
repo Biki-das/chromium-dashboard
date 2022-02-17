@@ -62,8 +62,8 @@ limitations under the License.
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <script nonce="{{nonce}}">
-    function onSignIn(googleUser) {
-        csClient.signIn(googleUser)
+    function onSignIn(CredentialResponse) {
+        csClient.signIn(CredentialResponse)
             .then(responseJson => {
                 console.log('Signed in:');
                 console.log(responseJson);
@@ -102,7 +102,6 @@ limitations under the License.
 
     }
 
-    var googleUser = {};
     function startApp() {
         gapi.load('auth2', function(){
           auth2 = gapi.auth2.init({
@@ -111,15 +110,6 @@ limitations under the License.
               scope: 'profile email'
           });
         });
-    }
-
-    function attachSignin(element) {
-      auth2.attachClickHandler(element, {},
-          function(googleUser) {
-            onSignIn(googleUser);
-          }, function(error) {
-              console.log(error);
-          });
     }
 
     function onLoad() {
