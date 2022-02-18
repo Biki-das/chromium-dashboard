@@ -83,44 +83,10 @@ limitations under the License.
         });
     }
 
-    function refreshSession() {
-        console.log('refreshing google sigin-in session');
-        let cu = auth2.currentUser.get();
-        cu.reloadAuthResponse().then(function(unused_auth_response) {
-            // Calling this sets the flask session cookie.
-            csClient.signIn(auth2.currentUser.get());
-        }).catch(() => {
-            console.error('Refreshing session failed.');
-            let ar = cu.getAuthResponse();
-            let expires_at = ar.expires_at;
-            if (expires_at < Number(new Date())) {
-                signOut();
-                console.log('Explicitly signing out because session expired.');
-            }
-        });
-
-    }
-
-    function startApp() {
-        gapi.load('auth2', function(){
-          auth2 = gapi.auth2.init({
-              client_id: '{{google_sign_in_client_id}}',
-              cookiepolicy: 'single_host_origin',
-              scope: 'profile email'
-          });
-        });
-    }
-
-    function onLoad() {
-      startApp();
-    }
-
     function promptSignIn(e) {
+      // TODO: double check this part.
       e.preventDefault();
       e.stopPropagation();
-      // TODO(kyleju): rewrite this method.
-      //let auth2 = gapi.auth2.getAuthInstance();
-      //auth2.signIn().then(handleCredentialResponse);
     }
 
 
