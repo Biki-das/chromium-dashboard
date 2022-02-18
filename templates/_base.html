@@ -62,8 +62,8 @@ limitations under the License.
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <script nonce="{{nonce}}">
-    function onSignIn(CredentialResponse) {
-        csClient.signIn(CredentialResponse)
+    function handleCredentialResponse(credentialResponse) {
+        csClient.signIn(credentialResponse)
             .then(responseJson => {
                 console.log('Signed in:');
                 console.log(responseJson);
@@ -76,8 +76,7 @@ limitations under the License.
     }
 
     function signOut() {
-        let auth2 = gapi.auth2.getAuthInstance();
-        csClient.signOut(auth2).then(responseJson => {
+        csClient.signOut().then(responseJson => {
             console.log('Signed out:');
             console.log(responseJson);
             window.location.reload();
@@ -119,8 +118,9 @@ limitations under the License.
     function promptSignIn(e) {
       e.preventDefault();
       e.stopPropagation();
-      let auth2 = gapi.auth2.getAuthInstance();
-      auth2.signIn().then(onSignIn);
+      // TODO(kyleju): rewrite this method.
+      //let auth2 = gapi.auth2.getAuthInstance();
+      //auth2.signIn().then(handleCredentialResponse);
     }
 
 
